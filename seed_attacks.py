@@ -12,7 +12,8 @@ attacks = [
 def seed():
     conn = get_connection()
     cursor = conn.cursor()
-    
+
+    # clear table first so when i rerun it doesnt create duplicates
     cursor.execute("DELETE FROM attacks")
 
     for category, prompt_text in attacks:
@@ -25,5 +26,6 @@ def seed():
     conn.close()
     print(f"Inserted {len(attacks)} attacks into the database.")
 
+# runs only when file executed directly (not when imported)
 if __name__ == "__main__":
     seed()
