@@ -1,3 +1,5 @@
+# cleanup the verdicts ( since sometimes AI doesnt always obey and adds extra text ) 
+
 from db import get_connection
 
 def clean_verdicts():
