@@ -2,8 +2,9 @@ import os
 from groq import Groq
 from db import get_connection
 
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))  # API key read from environment variable 
 
+# reads every attack from attacks table 
 def get_all_attacks():
     conn = get_connection()
     cursor = conn.cursor()
@@ -12,7 +13,7 @@ def get_all_attacks():
     conn.close()
     return rows
 
-
+# sends one attack prompt to the AI and saves its reply in runs table 
 def run_attack(attack_id, prompt_text):
     response = client.chat.completions.create(
         model="openai/gpt-oss-20b",
@@ -23,6 +24,7 @@ def run_attack(attack_id, prompt_text):
     reply_text = response.choices[0].message.content
     save_run(attack_id, reply_text)
 
+# saves the AI's reply to runs table  (linked to its attack by attack_id)
 def save_run(attack_id, model_response):
     conn = get_connection()
     cursor = conn.cursor()
