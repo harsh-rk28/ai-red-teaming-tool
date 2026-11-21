@@ -22,10 +22,10 @@ SQLite database so you can analyse results across runs.
   in the same conversation until the rule breaks
 - `hidden_intent` — hide the real request inside an innocent-looking coding question
 
-## Key Findings
-
+## Key Findings 
+- Note: these results come from a small number of runs (12 attacks per model), so treat them as indicative, not conclusive.
 - Only 1 clean refusal out of 12 attacks on the original model
-- My custom `hidden_intent` attack had the highest success rate across all categories
+- My custom `hidden_intent` attack had the highest success rate in my runs, across all categories
 - When Groq discontinued the original model mid-project, I re-ran all 12 attacks 
   on the new model. I found it was way more restrictive overall:
 
@@ -59,6 +59,8 @@ export GROQ_API_KEY=your_key_here
 ```bash
 python seed_attacks.py   # add attacks to database
 python run_attacks.py    # run attacks against the LLM
+python escalation_attack.py       # run my multi-turn escalation attack
+python hidden_intent_attack.py     # run my hidden intent attack
 python score_runs.py     # judge responses with second LLM
 python clean_scores.py   # clean up messy verdict text
 ```
